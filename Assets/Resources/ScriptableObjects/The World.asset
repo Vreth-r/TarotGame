@@ -1,0 +1,18 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4d666ff97a18af442ae3fb7fc4980206, type: 3}
+  m_Name: The World
+  m_EditorClassIdentifier: Assembly-CSharp::TheWorld
+  cardName: The World
+  description: Completion! If both players health are not equal, end the game.
+  artwork: {fileID: 21300000, guid: a2a89e2f3430a5b4d978df2ad7a6386f, type: 3}
+  id: 21

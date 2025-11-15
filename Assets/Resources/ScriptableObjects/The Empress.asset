@@ -1,0 +1,18 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d225f106d1a06d248865695191ba8b88, type: 3}
+  m_Name: The Empress
+  m_EditorClassIdentifier: Assembly-CSharp::TheEmpress
+  cardName: The Empress
+  description: Abundance! Heal for 3.
+  artwork: {fileID: 21300000, guid: efdb10f0ca02ee94e96d35e4168766df, type: 3}
+  id: 3
