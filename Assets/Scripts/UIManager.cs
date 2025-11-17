@@ -6,7 +6,7 @@ using UnityEngine.UI;
 
 public class UIManager : MonoBehaviour
 {
-    [Header("Round / Result")]
+    [Header("Text")]
     public TextMeshProUGUI roundText;
     public TextMeshProUGUI resultText;
 
@@ -18,12 +18,12 @@ public class UIManager : MonoBehaviour
     public SlotUI[] slots;   // custom struct defined below
 
     [Header("Buttons")]
-    public Button playButton;
+    public Button continueButton;
 
     private List<CardButton> activeHandButtons = new();
-    private List<Card> selectedCards = new();
+    public List<Card> selectedCards = new();
 
-    private bool waitingForSelection = false;
+    private bool selectionDone = false;
 
     // Used by GameManager
     private Card[] resolvedOrder = new Card[4];
@@ -34,7 +34,7 @@ public class UIManager : MonoBehaviour
     {
         for (int i = 0; i < 4; i++)
         {
-            slots[i].slotNumberText.text = (i + 1).ToString();
+            slots[i].slotNumberText.text = order[i] == 0 ? "P" : "O";
             slots[i].slotBackground.color = order[i] == 0 ? Color.blue : Color.red;
         }
     }
@@ -48,7 +48,6 @@ public class UIManager : MonoBehaviour
         activeHandButtons.Clear();
 
         selectedCards.Clear();
-        resultText.text = "Pick 2 cards";
 
         foreach (var card in hand)
         {
@@ -62,41 +61,25 @@ public class UIManager : MonoBehaviour
         }
     }
 
-    public void SelectCard(Card card)
-    {
-        if (selectedCards.Contains(card))
-            return;
-
-        if (selectedCards.Count < 2)
-            selectedCards.Add(card);
-
-        if (selectedCards.Count == 2)
-            playButton.interactable = true;
-    }
-
     public void UnselectCard(Card card)
     {
         if (selectedCards.Contains(card))
             selectedCards.Remove(card);
 
-        playButton.interactable = selectedCards.Count == 2;
     }
 
     public IEnumerator PlayerSelectCards(List<Card> hand)
     {
         resultText.text = "Select 2 cards to play";
         selectedCards.Clear();
+        selectionDone = false;
 
-        foreach (var card in hand)
-        {
-            var btnObj = Instantiate(cardButtonPrefab, handPanel);
-            var btn = btnObj.GetComponent<CardButton>();
-            btn.Setup(card, this);
-            activeHandButtons.Add(btn);
-        }
+        continueButton.gameObject.SetActive(false);
+        continueButton.onClick.RemoveAllListeners();
+        continueButton.onClick.AddListener(() => selectionDone = true);
 
         // wait until the player has exactly 2 cards
-        while (selectedCards.Count < 2)
+        while (!selectionDone)
             yield return null;
     }
 
@@ -112,17 +95,16 @@ public class UIManager : MonoBehaviour
 
         // If already have 2 cards → cannot select more
         if (selectedCards.Count >= 2)
+        {
+            button.SetSelected(false);
             return false;
+        }
 
         // Select it
         selectedCards.Add(card);
         button.SetSelected(true);
+        continueButton.gameObject.SetActive(selectedCards.Count == 2);
         return true;
-    }
-
-    public void ConfirmSelection()
-    {
-        waitingForSelection = false;
     }
 
     // Fill slots AFTER order has been decided by GameManager
@@ -139,6 +121,14 @@ public class UIManager : MonoBehaviour
             }
 
             slots[i].ShowCard(orderedCards[i], cardButtonPrefab);
+        }
+    }
+
+    public void RemoveCardsFromSlots()
+    {
+        for (int i = 0; i < 4; i++)
+        {
+            slots[i].ClearSlot();
         }
     }
 
@@ -168,7 +158,12 @@ public class SlotUI
     public void ClearSlot()
     {
         foreach (Transform t in contentRoot)
-            GameObject.Destroy(t.gameObject);
+        {
+            if(t.gameObject.GetComponent<TextMeshProUGUI>() == null)
+            {   
+                GameObject.Destroy(t.gameObject);
+            }
+        }
     }
 
     public void ShowCard(Card card, GameObject prefab)

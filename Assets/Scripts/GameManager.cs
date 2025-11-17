@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
+using System.Linq;
 
 public class GameManager : MonoBehaviour
 {
@@ -23,6 +24,9 @@ public class GameManager : MonoBehaviour
 
         player.ResetPlayer();
         computer.ResetPlayer();
+
+        player.ownerNumber = 0;
+        computer.ownerNumber = 1;
 
         StartCoroutine(GameLoop());
     }
@@ -46,31 +50,44 @@ public class GameManager : MonoBehaviour
         {
             ui.UpdateRoundUI(currentRound);
 
-            player.DrawCards(3);
+            player.DrawCards(3); // data only no visuals
             computer.DrawCards(3);
 
-            // Display player's hand
-            ui.DisplayPlayerHand(player.hand);
+            player.ProcEffectsRoundStart();
+            computer.ProcEffectsRoundStart();
 
-            // Pre-generate slot order (0 = player card, 1 = cpu card)
-            int[] ownershipOrder = new int[4];
-            ownershipOrder[0] = Random.Range(0, 2);
-            ownershipOrder[1] = 1 - ownershipOrder[0];
-            ownershipOrder[2] = Random.Range(0, 2);
-            ownershipOrder[3] = 1 - ownershipOrder[2];
+            int[] ownershipOrder = new int[] { 0, 0, 1, 1 };
+
+            // Fisher–Yates shuffle (0 is player 1 is cpu)
+            for (int i = 0; i < ownershipOrder.Length; i++)
+            {
+                int j = Random.Range(i, ownershipOrder.Length);
+                (ownershipOrder[i], ownershipOrder[j]) = (ownershipOrder[j], ownershipOrder[i]);
+            }
 
             ui.SetSlotOrderVisual(ownershipOrder);
+            
+            // Display player's hand
+            ui.DisplayPlayerHand(player.hand);
 
             // Player picks 2
             yield return ui.PlayerSelectCards(player.hand);
 
-            Card[] playerPicked = new Card[] { player.hand[0], player.hand[1] };
-            playerPicked = ui.GetSelectedCards();
+            Card[] playerPicked = ui.GetSelectedCards();
 
             // CPU picks first 2
-            Card[] cpuPicked = new Card[2];
-            cpuPicked[0] = computer.hand.Count > 0 ? computer.hand[0] : null;
-            cpuPicked[1] = computer.hand.Count > 1 ? computer.hand[1] : null;
+            List<Card> cpuHand = computer.hand;
+            Card[] cpuPicked = cpuHand.OrderBy(x => Random.value).Take(2).ToArray();
+
+            foreach (Card c in playerPicked)
+            {
+                player.hand.Remove(c);
+            }
+
+            foreach (Card c in cpuPicked)
+            {
+                computer.hand.Remove(c);
+            }
 
             // Build ordered array
             Card[] ordered = new Card[4];
@@ -86,28 +103,60 @@ public class GameManager : MonoBehaviour
             }
 
             ui.AssignCardsToSlots(ordered);
+            Debug.Log("Cards in slots");
             yield return new WaitForSeconds(1f);
 
             // Resolve in slot order
             for (int i = 0; i < 4; i++)
             {
                 Card card = ordered[i];
-                if (card != null)
+                if (card != null && !GameVariables.nextCardNegate)
                 {
                     if (ownershipOrder[i] == 0)
-                        card.Activate(player, computer, i > 0 ? ordered[i - 1] : null);
+                    {
+                        Debug.Log($"activating {card.cardName} for player");
+                        ui.ShowResult(card.Activate(player, computer, ordered, ownershipOrder));
+                    }
                     else
-                        card.Activate(computer, player, i > 0 ? ordered[i - 1] : null);
+                    {
+                        Debug.Log($"activating {card.cardName} for opp");
+                        ui.ShowResult(card.Activate(computer, player, ordered, ownershipOrder));
+                    }
+                }
+                ui.DisplayPlayerHand(player.hand);
+
+                // card effect cleanup
+                if(GameVariables.nextCardNegate)
+                {
+                    ui.ShowResult($"{card.cardName} was negated by Death!");
+                    GameVariables.nextCardNegate = false;
                 }
 
-                yield return new WaitForSeconds(1f);
+                yield return new WaitForSeconds(2f);
             }
 
-            // End-of-round fixed damage
-            player.life -= 2;
-            computer.life -= 2;
+            Debug.Log("Losing Fixed Life");
+            // round end fixed damage
+            player.ApplyDamage(2);
+            computer.ApplyDamage(2);
 
-            currentRound++;
+            if(!GameVariables.addARound)
+            {
+                currentRound++;
+                GameVariables.addARound = false;
+            }
+
+            yield return new WaitForSeconds(0.5f);
+            ui.RemoveCardsFromSlots();
+
+            // round effect cleanup
+            player.ResetRoundEnds();
+            computer.ResetRoundEnds();
+            if(GameVariables.endGame)
+            {
+                GameVariables.endGame = false;
+                break;
+            }
         }
 
         EndGame();

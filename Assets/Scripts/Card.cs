@@ -1,4 +1,6 @@
 using UnityEngine;
+using System.Collections;
+using System.Collections.Generic;
 
 [CreateAssetMenu(fileName = "New Card", menuName = "Tarot/Card")]
 public class Card : ScriptableObject
@@ -7,8 +9,8 @@ public class Card : ScriptableObject
     [TextArea] public string description;
     public Sprite artwork;
 
-    public virtual void Activate(Player self, Player opponent, Card leftcard = null)
+    public virtual string Activate(Player self, Player opponent, Card[] orderedCards, int[] ownerships)
     {
-        Debug.Log($"{cardName} activated.");
+        return $"[{cardName}]: {description}";
     }
 }

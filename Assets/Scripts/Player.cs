@@ -12,6 +12,13 @@ public class Player : MonoBehaviour
     public List<Card> deck = new();
     public List<Card> hand = new();
 
+    public int ownerNumber = 0;
+
+    // for effects
+    public bool sturdy = false; // strength effect
+    public bool protection = false; // hanged man effect
+    public bool patience = false; // temperance effect
+
     private void Start()
     {
         if (nameText != null) nameText.text = playerName;
@@ -28,15 +35,34 @@ public class Player : MonoBehaviour
         }
     }
 
+    public void ProcEffectsRoundStart()
+    {
+        if(patience)
+        {
+            DrawCards(2);
+        }
+    }
+
     public void ApplyDamage(int amount)
     {
+        if(protection) return;
         life = Mathf.Max(life - amount, 0);
+        if(life == 0 && sturdy)
+        {
+            life = 1;
+        }
         UpdateLifeUI();
     }
 
     public void Heal(int amount)
     {
         life += amount;
+        UpdateLifeUI();
+    }
+
+    public void SetHealth(int amount)
+    {
+        life = amount;
         UpdateLifeUI();
     }
 
@@ -51,5 +77,12 @@ public class Player : MonoBehaviour
     {
         if (lifeText != null)
             lifeText.text = $"Life: {life}";
+    }
+
+    public void ResetRoundEnds()
+    {
+        sturdy = false;
+        protection = false;
+        patience = false;
     }
 }

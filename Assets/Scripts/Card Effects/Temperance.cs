@@ -1,11 +1,14 @@
 using UnityEngine;
+using System.Collections;
+using System.Collections.Generic;
 
 [CreateAssetMenu(fileName = "Temperance", menuName = "Tarot/Effects/Temperance")]
 public class Temperance : Card
 {
     public int id = 14;
-    public override void Activate(Player self, Player opponent, Card leftCard = null)
+    public override string Activate(Player self, Player opponent, Card[] orderedCards, int[] ownerships)
     {
-        return;
+        self.patience = true;
+        return $"[{cardName}]: {description}";
     }
 }

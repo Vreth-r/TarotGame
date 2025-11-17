@@ -13,6 +13,6 @@ MonoBehaviour:
   m_Name: The Moon
   m_EditorClassIdentifier: Assembly-CSharp::TheMoon
   cardName: The Moon
-  description: 'Illusion! '
+  description: Trickery! Your opponent draws a card.
   artwork: {fileID: 21300000, guid: cc78526aafbc5ad4f8cfc01f92c226cb, type: 3}
   id: 18

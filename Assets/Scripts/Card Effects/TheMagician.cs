@@ -1,20 +1,35 @@
 using UnityEngine;
+using System.Collections;
+using System.Collections.Generic;
 
 [CreateAssetMenu(fileName = "The Magician", menuName = "Tarot/Effects/Magician")]
 public class TheMagician : Card
 {
     public int id = 1;
-    public override void Activate(Player self, Player opponent, Card leftCard = null)
+    public override string Activate(Player self, Player opponent, Card[] orderedCards, int[] ownerships)
     {
-        if (leftCard != null)
+        // Find this card's index in the order
+        int myIndex = -1;
+        for (int i = 0; i < orderedCards.Length; i++)
         {
-            Debug.Log("Magician copies effect of the left card.");
-            if (leftCard != null)
+            if (orderedCards[i] == this)
             {
-                leftCard.Activate(self, opponent);
-                return;
+                myIndex = i;
+                break;
             }
-            Debug.Log("No left card to copy effect from.");
         }
+
+        // No card to the left -> do nothing
+        if (myIndex == 0)
+            return $"[{cardName}] has no card to the left — effect does nothing.";
+
+        Card leftCard = orderedCards[myIndex - 1];
+
+        if (leftCard == null)
+            return $"[{cardName}] found no card to the left — effect does nothing.";
+
+        // Activate the copied card as if this card cast it
+        leftCard.Activate(self, opponent, orderedCards, ownerships);
+        return $"[{cardName}]: {description} [{leftCard.cardName}]";
     }
 }

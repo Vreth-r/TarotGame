@@ -14,14 +14,10 @@ public class CardButton : MonoBehaviour
 
     private void OnClick()
     {
-        if (!selected)
+        SetSelected(!selected);
+        if(uiManager != null)
         {
-            selected = true;
-            GetComponent<Image>().color = Color.green; // highlight backup
-            if(uiManager != null)
-            {
-                uiManager.ToggleCardSelection(card, this);
-            }
+            uiManager.ToggleCardSelection(card, this);
         }
     }
     public void Setup(Card card, UIManager manager)

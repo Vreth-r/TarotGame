@@ -13,6 +13,6 @@ MonoBehaviour:
   m_Name: Temperance
   m_EditorClassIdentifier: Assembly-CSharp::Temperance
   cardName: Temperance
-  description: Patience! Cancels out your opponents first card.
+  description: Patience! Next round, draw 2 cards.
   artwork: {fileID: 21300000, guid: a67addec87d704540bbb4de68e190107, type: 3}
   id: 14

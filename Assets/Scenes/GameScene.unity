@@ -153,8 +153,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 1, y: 1}
-  m_AnchoredPosition: {x: 0, y: 455}
-  m_SizeDelta: {x: -1720, y: -1030}
+  m_AnchoredPosition: {x: -4.265991, y: 346.7546}
+  m_SizeDelta: {x: -1374.4679, y: -813.5092}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &49456815
 CanvasRenderer:
@@ -211,15 +211,15 @@ MonoBehaviour:
   m_faceColor:
     serializedVersion: 2
     rgba: 4294967295
-  m_fontSize: 36
+  m_fontSize: 72
   m_fontSizeBase: 36
   m_fontWeight: 400
-  m_enableAutoSizing: 0
+  m_enableAutoSizing: 1
   m_fontSizeMin: 18
   m_fontSizeMax: 72
   m_fontStyle: 0
-  m_HorizontalAlignment: 1
-  m_VerticalAlignment: 256
+  m_HorizontalAlignment: 2
+  m_VerticalAlignment: 512
   m_textAlignment: 65535
   m_characterSpacing: 0
   m_wordSpacing: 0
@@ -2479,7 +2479,8 @@ MonoBehaviour:
   - slotBackground: {fileID: 1014225548}
     slotNumberText: {fileID: 476472155}
     contentRoot: {fileID: 1014225547}
-  playButton: {fileID: 768939731}
+  continueButton: {fileID: 768939731}
+  selectedCards: []
 --- !u!114 &1476726546
 MonoBehaviour:
   m_ObjectHideFlags: 0

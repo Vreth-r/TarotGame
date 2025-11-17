@@ -1,11 +1,15 @@
 using UnityEngine;
+using System.Collections;
+using System.Collections.Generic;
 
 [CreateAssetMenu(fileName = "The Moon", menuName = "Tarot/Effects/Moon")]
 public class TheMoon : Card
 {
     public int id = 18;
-    public override void Activate(Player self, Player opponent, Card leftCard = null)
+    public int cardsToDraw = 1;
+    public override string Activate(Player self, Player opponent, Card[] orderedCards, int[] ownerships)
     {
-        return;
+        opponent.DrawCards(cardsToDraw);
+        return $"[{cardName}]: {description}";
     }
 }

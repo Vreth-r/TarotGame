@@ -13,6 +13,6 @@ MonoBehaviour:
   m_Name: The Star
   m_EditorClassIdentifier: Assembly-CSharp::TheStar
   cardName: The Star
-  description: Hope! Set both players health to 5.
+  description: Hope! Set both players health to 8.
   artwork: {fileID: 21300000, guid: 9f6353905feb1aa47a320d6024a7b79c, type: 3}
-  healAmount: 3
+  healthAmount: 8

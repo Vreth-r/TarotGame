@@ -1,11 +1,15 @@
 using UnityEngine;
+using System.Collections;
+using System.Collections.Generic;
 
 [CreateAssetMenu(fileName = "The Hanged Man", menuName = "Tarot/Effects/HangedMan")]
 public class TheHangedMan : Card
 {
     public int id = 12;
-    public override void Activate(Player self, Player opponent, Card leftCard = null)
+    public override string Activate(Player self, Player opponent, Card[] orderedCards, int[] ownerships)
     {
-        return;
+        self.protection = true;
+        opponent.protection = true;
+        return $"[{cardName}]: {description}";
     }
 }

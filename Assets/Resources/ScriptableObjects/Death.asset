@@ -13,6 +13,6 @@ MonoBehaviour:
   m_Name: Death
   m_EditorClassIdentifier: Assembly-CSharp::Death
   cardName: Death
-  description: Endings! Kill the card to the left (it has no effect).
+  description: Endings! Kill the card to the right (it has no effect).
   artwork: {fileID: 21300000, guid: 11fff298ad3740847b9b1270dc8980ed, type: 3}
   id: 13
