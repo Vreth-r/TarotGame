@@ -13,6 +13,8 @@ public class GameManager : MonoBehaviour
     private int currentRound = 1;
     private const int MAX_ROUNDS = 3;
 
+    private bool cardNegate = false;
+
     private List<Card> allCards;
 
     private void Start()
@@ -21,6 +23,7 @@ public class GameManager : MonoBehaviour
 
         player.deck = new List<Card>(DeckSelectionManager.playerDeckSelection);
         computer.deck = GetRandomDeck();
+        //ShuffleList(player.deck);
 
         player.ResetPlayer();
         computer.ResetPlayer();
@@ -29,6 +32,15 @@ public class GameManager : MonoBehaviour
         computer.ownerNumber = 1;
 
         StartCoroutine(GameLoop());
+    }
+
+    public void ShuffleList<T>(List<T> list)
+    {
+        for (int i = 0; i < list.Count; i++)
+        {
+            int j = Random.Range(i, list.Count);
+            (list[i], list[j]) = (list[j], list[i]);
+        }
     }
 
     private List<Card> GetRandomDeck()
@@ -110,7 +122,13 @@ public class GameManager : MonoBehaviour
             for (int i = 0; i < 4; i++)
             {
                 Card card = ordered[i];
-                if (card != null && !GameVariables.nextCardNegate)
+
+                if(cardNegate)
+                {
+                    ui.ShowResult($"{card.cardName} was negated by Death!");
+                }
+                
+                if (card != null && !cardNegate)
                 {
                     if (ownershipOrder[i] == 0)
                     {
@@ -122,17 +140,23 @@ public class GameManager : MonoBehaviour
                         Debug.Log($"activating {card.cardName} for opp");
                         ui.ShowResult(card.Activate(computer, player, ordered, ownershipOrder));
                     }
+                    ui.SlotPointerToggle(i, true);
                 }
-                ui.DisplayPlayerHand(player.hand);
 
-                // card effect cleanup
                 if(GameVariables.nextCardNegate)
                 {
-                    ui.ShowResult($"{card.cardName} was negated by Death!");
+                    cardNegate = true;
                     GameVariables.nextCardNegate = false;
                 }
+                else
+                {
+                    cardNegate = false;
+                }
+
+                ui.DisplayPlayerHand(player.hand);
 
                 yield return new WaitForSeconds(2f);
+                ui.SlotPointerToggle(i, false);
             }
 
             Debug.Log("Losing Fixed Life");

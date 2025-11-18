@@ -146,6 +146,11 @@ public class UIManager : MonoBehaviour
     {
         return selectedCards.ToArray();
     }
+    
+    public void SlotPointerToggle(int index, bool status)
+    {
+        slots[index].PointerToggle(status);
+    }
 }
 
 [System.Serializable]
@@ -154,12 +159,13 @@ public class SlotUI
     public Image slotBackground;
     public TextMeshProUGUI slotNumberText;
     public Transform contentRoot; // place card prefab here
+    public Image pointer;
 
     public void ClearSlot()
     {
         foreach (Transform t in contentRoot)
         {
-            if(t.gameObject.GetComponent<TextMeshProUGUI>() == null)
+            if(t.gameObject.GetComponent<CardButton>() != null)
             {   
                 GameObject.Destroy(t.gameObject);
             }
@@ -171,5 +177,10 @@ public class SlotUI
         ClearSlot();
         var c = GameObject.Instantiate(prefab, contentRoot);
         c.GetComponent<CardButton>().Setup(card, null);
+    }
+
+    public void PointerToggle(bool status)
+    {
+        pointer.gameObject.SetActive(status);
     }
 }
