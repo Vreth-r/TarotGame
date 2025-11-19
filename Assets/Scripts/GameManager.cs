@@ -155,6 +155,22 @@ public class GameManager : MonoBehaviour
                     ui.SlotPointerToggle(i, true);
                 }
 
+                if(GameVariables.requestSwap)
+                {
+                    int a = GameVariables.swapA;
+                    int b = GameVariables.swapB;
+
+                    if(a >= 0 && a < 4 && b >= 0 && b < 4 && a != b)
+                    {
+                        (ordered[a], ordered[b]) = (ordered[b], ordered[a]);
+                        (ownershipOrder[a], ownershipOrder[b]) = (ownershipOrder[b], ownershipOrder[a]);
+
+                        ui.AssignCardsToSlots(ordered);
+                    }
+
+                    GameVariables.ClearSwap();
+                }
+
                 if(GameVariables.nextCardNegate)
                 {
                     cardNegate = true;

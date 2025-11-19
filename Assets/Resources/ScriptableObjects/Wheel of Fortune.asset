@@ -13,6 +13,6 @@ MonoBehaviour:
   m_Name: Wheel of Fortune
   m_EditorClassIdentifier: Assembly-CSharp::WheelOfFortune
   cardName: The Wheel of Fortune
-  description: Fortune! Swap your opponents cards places.
+  description: Fortune! Swap cards 2 and 3.
   artwork: {fileID: 21300000, guid: 8ae2df3b2e822c54aadcc57eed31566e, type: 3}
   id: 10
