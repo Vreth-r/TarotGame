@@ -83,6 +83,5 @@ public class Player : MonoBehaviour
     {
         sturdy = false;
         protection = false;
-        patience = false;
     }
 }

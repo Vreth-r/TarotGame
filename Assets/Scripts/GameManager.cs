@@ -62,6 +62,18 @@ public class GameManager : MonoBehaviour
         {
             ui.UpdateRoundUI(currentRound);
 
+            if(player.patience)
+            {
+                player.Heal(4);
+                player.patience = false;
+            }
+            
+            if(computer.patience)
+            {
+                computer.Heal(4);
+                computer.patience = false;
+            }
+
             player.DrawCards(3); // data only no visuals
             computer.DrawCards(3);
 

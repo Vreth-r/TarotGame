@@ -25,6 +25,11 @@ public class TheHighPriestess : Card
             }
         }
 
+        if(cardToCopy.cardName == "The High Priestess" || cardToCopy.cardName == "The Magician" || cardToCopy.cardName == "The Hierophant")
+        {
+            return $"Can't copy other copy card!";
+        }
+
         // activate the copied card
         cardToCopy.Activate(self, opponent, orderedCards, ownerships);
 

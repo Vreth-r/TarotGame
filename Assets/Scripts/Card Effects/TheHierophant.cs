@@ -40,6 +40,11 @@ public class TheHierophant : Card
 
         if (otherCard == null)
             return $"[{cardName}] found no card to copy.";
+        
+        if(otherCard.cardName == "The High Priestess" || otherCard.cardName == "The Magician" || otherCard.cardName == "The Hierophant")
+        {
+            return $"Can't copy other copy card!";
+        }
 
         // Activate the other card's effect as if this card played it
         otherCard.Activate(self, opponent, orderedCards, ownerships);

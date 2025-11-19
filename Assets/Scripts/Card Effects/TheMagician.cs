@@ -28,6 +28,11 @@ public class TheMagician : Card
         if (leftCard == null)
             return $"[{cardName}] found no card to the left — effect does nothing.";
 
+        if(leftCard.cardName == "The High Priestess" || leftCard.cardName == "The Magician" || leftCard.cardName == "The Hierophant")
+        {
+            return $"Can't copy other copy card!";
+        }
+        
         // Activate the copied card as if this card cast it
         leftCard.Activate(self, opponent, orderedCards, ownerships);
         return $"[{cardName}]: {description} [{leftCard.cardName}]";
