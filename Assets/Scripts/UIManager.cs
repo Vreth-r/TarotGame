@@ -34,8 +34,8 @@ public class UIManager : MonoBehaviour
     {
         for (int i = 0; i < 4; i++)
         {
-            slots[i].slotNumberText.text = order[i] == 0 ? "P" : "O";
-            slots[i].slotBackground.color = order[i] == 0 ? Color.blue : Color.red;
+            slots[i].slotNumberText.text = order[i] == 0 ? "↓" : "↑";
+            slots[i].slotBackground.color = order[i] == 0 ? Color.purple : Color.green;
         }
     }
 

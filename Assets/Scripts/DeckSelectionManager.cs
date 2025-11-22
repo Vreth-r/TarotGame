@@ -100,6 +100,6 @@ public class DeckSelectionManager : MonoBehaviour
         }
 
         playerDeckSelection = new List<Card>(selectedCards);
-        SceneManager.LoadScene("GameScene");
+        SceneFader.Instance.FadeToScene("GameScene");
     }
 }

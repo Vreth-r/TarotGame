@@ -231,6 +231,6 @@ public class GameManager : MonoBehaviour
     private IEnumerator ReturnToSelect()
     {
         yield return new WaitForSeconds(3f);
-        SceneManager.LoadScene("DeckSelectScene");
+        SceneFader.Instance.FadeToScene("DeckSelectScene");
     }
 }
