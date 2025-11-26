@@ -15,5 +15,6 @@ MonoBehaviour:
   cardName: The World
   description: Completion! If your health is 5 more than the opponent, end the game
     after this round.
-  artwork: {fileID: 21300000, guid: a2a89e2f3430a5b4d978df2ad7a6386f, type: 3}
+  artwork: {fileID: 21300000, guid: b73e6ddfeebf4cd48bb85054cf7b06d0, type: 3}
   id: 21
+  healthThreshold: 5

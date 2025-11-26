@@ -14,5 +14,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::TheTower
   cardName: The Tower
   description: Disaster! Both players take 5 damage.
-  artwork: {fileID: 21300000, guid: 6731df1b0688f8d4085eaa67509b92e4, type: 3}
+  artwork: {fileID: 21300000, guid: 3f6e5a886da5b3c48bac5e673879996c, type: 3}
+  id: 16
   damageAmount: 5

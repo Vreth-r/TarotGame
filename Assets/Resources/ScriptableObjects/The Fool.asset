@@ -14,5 +14,5 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::TheFool
   cardName: The Fool
   description: Beginnings! If both players health are equal, add a round.
-  artwork: {fileID: 21300000, guid: 9b21cea5331c4fa4c97110ff17473c92, type: 3}
+  artwork: {fileID: 21300000, guid: 09c4025083d203d4782f36fc36c13752, type: 3}
   id: 0

@@ -14,5 +14,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::Judgement
   cardName: Judgement
   description: Weigh your options! Draw a card.
-  artwork: {fileID: 21300000, guid: 7b3ff03cf69010d4c922e0242c0a83cb, type: 3}
+  artwork: {fileID: 21300000, guid: 2b0bb861323a5ed4eb84b0d9849cea37, type: 3}
   id: 20
+  cardsToDraw: 1

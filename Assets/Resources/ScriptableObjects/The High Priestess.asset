@@ -14,5 +14,5 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::TheHighPriestess
   cardName: The High Priestess
   description: Intuition! Copy your opponents second card.
-  artwork: {fileID: 21300000, guid: a534e06d128c0074c8ed73c5ee65feaf, type: 3}
+  artwork: {fileID: 21300000, guid: c28f9cfb6060cbf4fb79911640fce2b6, type: 3}
   id: 2

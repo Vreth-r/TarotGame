@@ -14,5 +14,5 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::TheSun
   cardName: The Sun
   description: Happiness! Wouldn't it be great if nothing happened? (Does nothing).
-  artwork: {fileID: 21300000, guid: 68663bd0bcce9b04db418c2aaf10bb4a, type: 3}
+  artwork: {fileID: 21300000, guid: 05b6df182466f8b4ebb9bc2f395646f2, type: 3}
   id: 19

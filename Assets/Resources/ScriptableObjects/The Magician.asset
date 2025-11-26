@@ -14,4 +14,5 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::TheMagician
   cardName: The Magician
   description: Manifest! Copies the card effect to the left.
-  artwork: {fileID: 21300000, guid: 8f906531d8f41fa44b1f1dde5737be98, type: 3}
+  artwork: {fileID: 21300000, guid: 5cdfcca133bd909479a4cedadce60b4d, type: 3}
+  id: 1
